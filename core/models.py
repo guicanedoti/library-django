@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 class Author(models.Model):
     fullname = models.CharField(max_length=100)
+    nacionality = models.CharField(max_length=100)
+    
 
     def __str__(self):
         return self.fullname
@@ -11,6 +13,7 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    gener = models.CharField(max_length=100) 
 
     def __str__(self):
         return self.name
