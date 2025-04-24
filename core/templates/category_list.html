@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Categorias</title>
-</head>
-<body>
-    <h1>Lista de Categorias</h1>
-    <a href="{% url 'category-create' %}">Adicionar Categoria</a>
-    <ul>
-        {% for category in categories %}
-            <li>{{ category.name }} - {{ category.gener }}
-                <a href="{% url 'category-update' category.pk %}">Editar</a>
-                <a href="{% url 'category-delete' category.pk %}">Excluir</a>
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Categorias</h2>
+    <a href="{% url 'category-create' %}" class="btn btn-success mb-3">+ Adicionar Categoria</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Gênero</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td>{{ category.gener }}</td>
+                <td>
+                    <a href="{% url 'category-update' category.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'category-delete' category.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3">
