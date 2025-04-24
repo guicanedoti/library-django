@@ -21,14 +21,14 @@ class AuthorListView(ListView):
 
 class AuthorCreateView(LoginRequiredMixin, CreateView):
     model = Author
-    fields = ['fullname', 'nationality']
+    fields = ['fullname', 'nacionality']
     template_name = 'author_form.html'
     success_url = reverse_lazy('author-list')
 
 
 class AuthorUpdateView(LoginRequiredMixin, UpdateView):
     model = Author
-    fields = ['fullname', 'nationality']
+    fields = ['fullname', 'nacionality']
     template_name = 'author_form.html'
     success_url = reverse_lazy('author-list')
 

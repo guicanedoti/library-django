@@ -7,4 +7,4 @@ from .models import Loan
 admin.site.register(Author)
 admin.site.register(Book)
 admin.site.register(Category)
-admin.site.register(Loan)
+admin.site.register(Loan) 
