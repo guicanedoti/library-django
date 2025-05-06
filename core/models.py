@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 
 class Author(models.Model):
     fullname = models.CharField(max_length=100)
+    birthdate = models.DateField(auto_now_add=False)
+    rating = models.IntegerField(null=False, blank=False)
+    description = models.TextField(null=False, blank=False)
 
     def __str__(self):
         return self.fullname
@@ -16,6 +19,7 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
+    name = models.TextField(null=True, blank=True)
     
     class Meta:
         verbose_name = "Categoria"
@@ -62,7 +66,7 @@ class Loan(models.Model):
     
 class Publisher(models.Model):
     name = models.CharField(max_length=100)
-    city = models.CharField(max_length=100, null=True, blank=True)
+    rating = models.IntegerField(blank=False, null=False)
 
     class Meta:
         verbose_name = "Editora"

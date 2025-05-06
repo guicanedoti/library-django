@@ -8,15 +8,12 @@
     <thead>
       <tr>
         <th>Nome</th>
-        <th>Gênero</th>
-        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       {% for category in categories %}
       <tr>
         <td>{{ category.name }}</td>
-        <td>{{ category.gener }}</td>
         <td>
           <a
             href="{% url 'category-update' category.pk %}"

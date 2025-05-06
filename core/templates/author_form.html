@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,10 +11,7 @@
     <h2>{% if object %}Editar Autor{% else %}Novo Autor{% endif %}</h2>
     <form method="post">
         {% csrf_token %}
-        <div class="mb-3">
-            {{ form.fullname.label_tag }}
-            {{ form.fullname }}
-        </div>
+        {{form|crispy}}
         <button type="submit" class="btn btn-primary">Salvar</button>
         <a href="{% url 'author-list' %}" class="btn btn-secondary">Cancelar</a>
     </form>

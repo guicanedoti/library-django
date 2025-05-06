@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.views import View
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,8 +9,7 @@ from django.urls import reverse
 
 
 from .models import Author, Category, Book, Loan
-
-# Página Inicial 
+from .forms import (BookForm, AuthorForm)
 
 class HomePageView(TemplateView): 
     template_name = 'home.html'
@@ -18,27 +17,33 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['latest_books'] = Book.objects.all().order_by('-id')[:12]
+        context['top_authors'] = Author.objects.all().order_by('-rating')[:5]
         return context
 
-# Autores
 
 class AuthorListView(ListView):
     model = Author
     template_name = 'author_list.html'
     context_object_name = 'authors'
+    
+
+class AuthorDetailView(DetailView):
+    model = Author
+    template_name = 'author_details.html'
+    context_object_name = 'author'
 
 
 class AuthorCreateView(LoginRequiredMixin, CreateView):
     model = Author
-    fields = ['fullname']
     template_name = 'author_form.html'
+    form_class = AuthorForm
     success_url = reverse_lazy('author-list')
 
 
 class AuthorUpdateView(LoginRequiredMixin, UpdateView):
     model = Author
-    fields = ['fullname']
     template_name = 'author_form.html'
+    form_class = AuthorForm
     success_url = reverse_lazy('author-list')
 
 
@@ -81,19 +86,22 @@ class BookListView(ListView):
     model = Book
     template_name = 'book_list.html'
     context_object_name = 'books'
-
+    
+class BookDetailView(DetailView):
+    model = Book
+    template_name = 'book_details.html'
+    context_object_name = 'book'
 
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
-    fields = ['title', 'author', 'year_published', 'category', 'description']
     template_name = 'book_form.html'
+    form_class = BookForm
     success_url = reverse_lazy('book-list')
-
 
 class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
-    fields = ['title', 'author', 'year_published', 'category', 'description']
     template_name = 'book_form.html'
+    form_class = BookForm
     success_url = reverse_lazy('book-list')
     
     

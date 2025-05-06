@@ -19,15 +19,19 @@
         <thead>
           <tr>
             <th>Nome</th>
-            <th>Nacionalidade</th>
-            <th>Ações</th>
+            <th>Data de nascimento</th>
+            <th>Nota</th>
           </tr>
         </thead>
         <tbody>
           {% for author in authors %}
           <tr>
             <td>{{ author.fullname }}</td>
-            <td>{{ author.nacionality }}</td>
+            <td>{{ author.birthdate }}</td>
+            <td>
+              {{ author.rating }}/10 {% if author.rating > 6 %} ⭐ {% else %} ⚠️
+              {% endif %}
+            </td>
             <td>
               <a
                 href="{% url 'author-update' author.pk %}"

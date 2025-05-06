@@ -44,22 +44,48 @@
         <div class="col">
           <div class="card h-100">
             <div class="card-body">
-              <h5 class="card-title">{{ book.title }}</h5>
+              <h5 class="card-title">{{ book.title|upper }}</h5>
               <p class="card-text">
                 <strong>Autor:</strong> {{ book.author }}<br />
                 <strong>Ano:</strong> {{ book.year_published }}<br />
                 <strong>Categoria:</strong> {{ book.category }}
               </p>
               <a
-                href="{% url 'book-update' book.pk %}"
+                href="{% url 'book-detail' book.pk %}"
                 class="btn btn-sm btn-outline-primary"
-                >Editar</a
+                >Acessar</a
               >
             </div>
           </div>
         </div>
         {% empty %}
         <p>Nenhum livro encontrado.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <h2 class="mb-4">Top 5 Autores com Melhor Avaliação</h2>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for author in top_authors %}
+        <div class="col">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <h5 class="card-title">{{ author.fullname }}</h5>
+              <p class="card-text">
+                <strong>Nota:</strong> {{ author.rating }}/10<br />
+                <strong>Data de Nascimento:</strong> {{ author.birthdate }}
+              </p>
+              <a
+                href="{% url 'author-detail' author.pk %}"
+                class="btn btn-sm btn-outline-primary"
+                >Acessar</a
+              >
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p>Nenhum autor encontrado.</p>
         {% endfor %}
       </div>
     </div>
