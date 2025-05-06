@@ -9,6 +9,7 @@
     <div class="card-body">
       <p><strong>Data de nascimento:</strong> {{ author.birthdate }}</p>
       <p><strong>Nota:</strong> {{ author.rating }}/10</p>
+      <p><strong>Descrição:</strong><br> {{ author.description }}</p>
       <a href="{% url 'author-list' %}" class="btn btn-secondary mt-3">Voltar</a>
     </div>
   </div>
