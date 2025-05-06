@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views import View
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 from .models import Author, Category, Book, Loan
 
@@ -10,6 +14,11 @@ from .models import Author, Category, Book, Loan
 
 class HomePageView(TemplateView): 
     template_name = 'home.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['latest_books'] = Book.objects.all().order_by('-id')[:12]
+        return context
 
 # Autores
 
@@ -21,27 +30,25 @@ class AuthorListView(ListView):
 
 class AuthorCreateView(LoginRequiredMixin, CreateView):
     model = Author
-    fields = ['fullname', 'nacionality']
+    fields = ['fullname']
     template_name = 'author_form.html'
     success_url = reverse_lazy('author-list')
 
 
 class AuthorUpdateView(LoginRequiredMixin, UpdateView):
     model = Author
-    fields = ['fullname', 'nacionality']
+    fields = ['fullname']
     template_name = 'author_form.html'
     success_url = reverse_lazy('author-list')
 
 
-class AuthorDeleteView(LoginRequiredMixin, DeleteView):
-    model = Author
-    template_name = 'author_confirm_delete.html'
-    success_url = reverse_lazy('author-list')
-
+def delete_author(request, pk):
+    author = get_object_or_404(Author, pk=pk)
+    author.delete()
+    return HttpResponseRedirect(reverse('author-list'))
 
 
 # Categorias
-
 class CategoryListView(ListView):
     model = Category
     template_name = 'category_list.html'
@@ -70,7 +77,6 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
 
 
 # Livros
-
 class BookListView(ListView):
     model = Book
     template_name = 'book_list.html'
@@ -89,13 +95,15 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
     fields = ['title', 'author', 'year_published', 'category', 'description']
     template_name = 'book_form.html'
     success_url = reverse_lazy('book-list')
-
-
+    
+    
 class BookDeleteView(LoginRequiredMixin, DeleteView):
     model = Book
-    template_name = 'book_confirm_delete.html'
-    success_url = reverse_lazy('book-list')
-
+    
+    def post(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
+        book.delete()
+        return HttpResponseRedirect(reverse('book-list'))
 
 
 # Empréstimos

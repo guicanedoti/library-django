@@ -22,7 +22,12 @@
                 <td>{{ book.year_published }}</td>
                 <td>
                     <a href="{% url 'book-update' book.pk %}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="{% url 'book-delete' book.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                    {% csrf_token %}
+                    <form action="{% url 'book-delete' book.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                    </form>
+                    
                 </td>
             </tr>
             {% empty %}

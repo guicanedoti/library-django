@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+    <h2>Você saiu do sistema</h2>
+    <a href="{% url 'login' %}" class="btn btn-secondary mt-3">Voltar para login</a>
+  </div>
+{% endblock %}
