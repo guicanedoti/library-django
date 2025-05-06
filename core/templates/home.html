@@ -1,3 +1,4 @@
+{% extends 'base.html' %} {% block content %}
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -30,14 +31,63 @@
     </style>
   </head>
   <body>
-    <div class="hero">
-      <h1>Bem-vindo à Biblioteca</h1>
-      <p class="lead">
-        Gerencie livros, autores, categorias e empréstimos com facilidade.
-      </p>
-    </div>
-
     <div class="container mt-5">
+      <div class="container section-links">
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">Autores</h5>
+                <p class="card-text">Veja e edite os autores cadastrados.</p>
+                <a href="{% url 'author-list' %}" class="btn btn-primary"
+                  >Acessar</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">Categorias</h5>
+                <p class="card-text">Gerencie as categorias de livros.</p>
+                <a href="{% url 'category-list' %}" class="btn btn-primary"
+                  >Acessar</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">Livros</h5>
+                <p class="card-text">
+                  Adicione ou edite os livros da biblioteca.
+                </p>
+                <a href="{% url 'book-list' %}" class="btn btn-primary"
+                  >Acessar</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">Empréstimos</h5>
+                <p class="card-text">
+                  Visualize os empréstimos ativos e históricos.
+                </p>
+                <a href="{% url 'loan-list' %}" class="btn btn-primary"
+                  >Acessar</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <h2 class="mb-4">Últimos Livros Adicionados</h2>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         {% for book in latest_books %}
@@ -74,7 +124,6 @@
               <h5 class="card-title">{{ author.fullname }}</h5>
               <p class="card-text">
                 <strong>Nota:</strong> {{ author.rating }}/10<br />
-                <strong>Data de Nascimento:</strong> {{ author.birthdate }}
               </p>
               <a
                 href="{% url 'author-detail' author.pk %}"
@@ -90,62 +139,7 @@
       </div>
     </div>
 
-    <div class="container section-links">
-      <div class="row g-4">
-        <div class="col-md-3">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Autores</h5>
-              <p class="card-text">Veja e edite os autores cadastrados.</p>
-              <a href="{% url 'author-list' %}" class="btn btn-primary"
-                >Acessar</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Categorias</h5>
-              <p class="card-text">Gerencie as categorias de livros.</p>
-              <a href="{% url 'category-list' %}" class="btn btn-primary"
-                >Acessar</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Livros</h5>
-              <p class="card-text">
-                Adicione ou edite os livros da biblioteca.
-              </p>
-              <a href="{% url 'book-list' %}" class="btn btn-primary"
-                >Acessar</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Empréstimos</h5>
-              <p class="card-text">
-                Visualize os empréstimos ativos e históricos.
-              </p>
-              <a href="{% url 'loan-list' %}" class="btn btn-primary"
-                >Acessar</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+{%endblock%}

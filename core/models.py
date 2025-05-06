@@ -19,7 +19,6 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
-    name = models.TextField(null=True, blank=True)
     
     class Meta:
         verbose_name = "Categoria"

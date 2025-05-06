@@ -10,7 +10,7 @@
                 <th>Autor</th>
                 <th>Categoria</th>
                 <th>Ano</th>
-                <th>Ações</th>
+                <th>Editora</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +20,7 @@
                 <td>{{ book.author }}</td>
                 <td>{{ book.category }}</td>
                 <td>{{ book.year_published }}</td>
+                <td>{{ book.publisher }}</td>
                 <td>
                     <a href="{% url 'book-update' book.pk %}" class="btn btn-sm btn-warning">Editar</a>
                     {% csrf_token %}
