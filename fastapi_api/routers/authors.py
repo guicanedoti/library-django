@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from database import SessionLocal, engine
-import models, schemas, crud
+from fastapi_api.database import SessionLocal, engine
+from fastapi_api import models, schemas, crud
 
 models.Base.metadata.create_all(bind=engine)
 

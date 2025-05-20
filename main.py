@@ -1,4 +1,4 @@
-from routers import authors, books
+from fastapi_api.routers import authors, books
 
 app = FastAPI()
 

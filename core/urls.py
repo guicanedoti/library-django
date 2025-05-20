@@ -16,6 +16,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
+    path('api/', include('core.api_urls')),
 
     path('authors/', AuthorListView.as_view(), name='author-list'),
     path('authors/create/', AuthorCreateView.as_view(), name='author-create'),

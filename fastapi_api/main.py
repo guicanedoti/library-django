@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import authors  # importe o arquivo de rotas que você criou
+from .routers import authors  # importe o arquivo de rotas que você criou
 
 app = FastAPI()
 

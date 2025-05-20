@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-import models, schemas
+from fastapi_api import models, schemas
 
 def get_all(db: Session, model):
     return db.query(model).all()
