@@ -9,7 +9,7 @@
 <body>
 <div class="container mt-4">
     <h2>{% if object %}Editar Livro{% else %}Novo Livro{% endif %}</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         {{ form|crispy }}

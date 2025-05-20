@@ -35,6 +35,7 @@ class Book(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     publisher = models.ForeignKey('Publisher', on_delete=models.SET_NULL, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
+    cover = models.ImageField(upload_to='book_covers/', null=True, blank=True)
     
     class Meta:
         verbose_name = "Livro"

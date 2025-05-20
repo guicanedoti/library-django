@@ -97,12 +97,24 @@ class BookCreateView(LoginRequiredMixin, CreateView):
     template_name = 'book_form.html'
     form_class = BookForm
     success_url = reverse_lazy('book-list')
+    
+    def form_valid(self, form):
+        form.instance = form.save(commit=False)
+        if self.request.FILES:
+            form.instance.cover = self.request.FILES['cover']
+        return super().form_valid(form)
 
 class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
     template_name = 'book_form.html'
     form_class = BookForm
     success_url = reverse_lazy('book-list')
+    
+    def form_valid(self, form):
+        form.instance = form.save(commit=False)
+        if self.request.FILES:
+            form.instance.cover = self.request.FILES['cover']
+        return super().form_valid(form)
     
     
 class BookDeleteView(LoginRequiredMixin, DeleteView):

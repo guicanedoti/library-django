@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from .views import (
@@ -8,6 +8,8 @@ from .views import (
     BookListView, BookCreateView, BookUpdateView, BookDeleteView, BookDetailView,
     LoanListView, LoanCreateView, LoanUpdateView, delete_author
 )
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'), 
@@ -35,4 +37,4 @@ urlpatterns = [
     path('loans/', LoanListView.as_view(), name='loan-list'),
     path('loans/create/', LoanCreateView.as_view(), name='loan-create'),
     path('loans/<int:pk>/update/', LoanUpdateView.as_view(), name='loan-update'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %} {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -93,6 +93,21 @@
         {% for book in latest_books %}
         <div class="col">
           <div class="card h-100">
+            {% if book.cover %}
+            <img
+              src="{{ book.cover.url }}"
+              class="card-img-top"
+              style="height: 200px; object-fit: cover"
+              alt="{{ book.title }}"
+            />
+            {% else %}
+            <img
+              src="{% static 'default_cover.jpg' %}"
+              class="card-img-top"
+              style="height: 200px; object-fit: cover"
+              alt="Sem capa"
+            />
+            {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ book.title|upper }}</h5>
               <p class="card-text">
