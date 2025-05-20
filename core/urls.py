@@ -5,7 +5,7 @@ from .views import (
     HomePageView,
     AuthorListView, AuthorDetailView, AuthorCreateView, AuthorUpdateView,
     CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView,
-    BookListView, BookCreateView, BookUpdateView, BookDeleteView, BookDetailView,
+    book_list, book_detail, book_create, book_update, book_delete,
     LoanListView, LoanCreateView, LoanUpdateView, delete_author
 )
 from django.conf import settings
@@ -29,11 +29,11 @@ urlpatterns = [
     path('categories/<int:pk>/update/', CategoryUpdateView.as_view(), name='category-update'),
     path('categories/<int:pk>/delete/', CategoryDeleteView.as_view(), name='category-delete'),
 
-    path('books/', BookListView.as_view(), name='book-list'),
-    path('books/create/', BookCreateView.as_view(), name='book-create'),
-    path('books/<int:pk>/update/', BookUpdateView.as_view(), name='book-update'),
-    path('books/<int:pk>/delete/', BookDeleteView.as_view(), name='book-delete'),
-    path('books/<int:pk>/', BookDetailView.as_view(), name='book-detail'),
+    path('books/', book_list, name='book-list'),
+    path('books/create/', book_create, name='book-create'),
+    path('books/<int:pk>/update/', book_update, name='book-update'),
+    path('books/<int:pk>/delete/', book_delete, name='book-delete'),
+    path('books/<int:pk>/', book_detail, name='book-detail'),
 
     path('loans/', LoanListView.as_view(), name='loan-list'),
     path('loans/create/', LoanCreateView.as_view(), name='loan-create'),
