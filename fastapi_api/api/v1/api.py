@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from api.v1.endpoints import authors, books, categories, publishers, loans, utilities
+from fastapi_api.api.v1.endpoints import authors, books, categories, publishers, loans, utilities
 
 api_router = APIRouter()
 

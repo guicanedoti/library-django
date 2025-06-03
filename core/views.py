@@ -6,7 +6,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from rest_framework import viewsets
+from .serializers.book_serializer import (
+    BookListSerializer,
+    BookDetailSerializer,
+    BookCreateSerializer,
+    BookUpdateSerializer,
+)
 
 from .models import Author, Category, Book, Loan
 from .forms import (BookForm, AuthorForm)
@@ -124,6 +130,21 @@ class BookDeleteView(LoginRequiredMixin, DeleteView):
         book = get_object_or_404(Book, pk=pk)
         book.delete()
         return HttpResponseRedirect(reverse('book-list'))
+    
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return BookListSerializer
+        elif self.action == 'retrieve':
+            return BookDetailSerializer
+        elif self.action == 'create':
+            return BookCreateSerializer
+        elif self.action in ['update', 'partial_update']:
+            return BookUpdateSerializer
+        return BookDetailSerializer  # fallback
 
 
 def book_list(request):

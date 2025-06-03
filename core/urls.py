@@ -1,6 +1,8 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from rest_framework.routers import DefaultRouter
 from django.contrib import admin
+from core.views import BookViewSet
 from .views import (
     HomePageView,
     AuthorListView, AuthorDetailView, AuthorCreateView, AuthorUpdateView,
@@ -11,12 +13,16 @@ from .views import (
 from django.conf import settings
 from django.conf.urls.static import static
 
+router = DefaultRouter()
+router.register(r'books', BookViewSet)
+
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'), 
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('api/', include('core.api_urls')),
+    path('', include(router.urls)),
 
     path('authors/', AuthorListView.as_view(), name='author-list'),
     path('authors/create/', AuthorCreateView.as_view(), name='author-create'),

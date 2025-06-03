@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Date
 from sqlalchemy.orm import relationship
-from core.database import Base
+from fastapi_api.core.database import Base
 
 class Loan(Base):
     __tablename__ = "loans"

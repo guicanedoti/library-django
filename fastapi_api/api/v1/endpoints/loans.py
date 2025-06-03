@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
-from core.dependencies import get_db
-from schemas.loan_schema import Loan, LoanCreate
-from crud.loan_crud import loan_crud
+from fastapi_api.core.dependencies import get_db
+from fastapi_api.schemas.loan_schema import Loan, LoanCreate
+from fastapi_api.crud.loan_crud import loan_crud
 
 router = APIRouter()
 

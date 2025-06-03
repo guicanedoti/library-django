@@ -1,6 +1,6 @@
 from typing import TypeVar, Type, Any, List, Optional, Generic
 from sqlalchemy.orm import Session
-from core.database import Base 
+from fastapi_api.core.database import Base 
 
 ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=Any)

@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from core.database import Base, engine
+from fastapi_api.core.database import Base, engine
 
-from models import author_model, book_model, category_model, loan_model, publisher_model
-from api.v1.api import api_router
+from fastapi_api.models import author_model, book_model, category_model, loan_model, publisher_model
+from fastapi_api.api.v1.api import api_router
 
 
 Base.metadata.create_all(bind=engine)

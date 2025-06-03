@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from fastapi import Path
 
-from core.dependencies import get_db
-from schemas.book_schema import Book, BookCreate
-from crud.book_crud import book_crud
-from schemas.enums import BookStatus
+from fastapi_api.core.dependencies import get_db
+from fastapi_api.schemas.book_schema import Book, BookCreate
+from fastapi_api.crud.book_crud import book_crud
+from fastapi_api.schemas.enums import BookStatus
 
 router = APIRouter()
 
@@ -22,12 +23,28 @@ def read_all_books(
     books = book_crud.get_books_by_filters(db, title=title, author_id=author_id)
     return books
 
+@router.get("/secure/{book_id}")
+def get_book_with_path_validation(
+    book_id: int = Path(..., gt=0, description="ID deve ser maior que 0"),
+    db: Session = Depends(get_db)
+):
+    book = book_crud.get_by_id(db, book_id)
+    if not book:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return book
+
 @router.get("/{book_id}", response_model=Book)
 def read_book_by_id(book_id: int, db: Session = Depends(get_db)):
     book = book_crud.get_by_id(db, book_id)
     if not book:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
     return book
+
+@router.get("/optional-author/")
+@router.get("/optional-author/{author_id}")
+def get_books_optional_author(author_id: Optional[int] = None, db: Session = Depends(get_db)):
+    return book_crud.get_books_by_filters(db, author_id=author_id)
+
 
 @router.put("/{book_id}", response_model=Book)
 def update_existing_book(book_id: int, book_update: BookCreate, db: Session = Depends(get_db)):

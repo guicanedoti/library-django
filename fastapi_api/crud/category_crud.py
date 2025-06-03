@@ -1,11 +1,11 @@
-from models.category_model import Category
-from schemas.category_schema import CategoryCreate, Category
-from crud.base_crud import CRUDBase
+from fastapi_api.models.category_model import Category as CategoryModel
+from fastapi_api.schemas.category_schema import CategoryCreate, Category as CategorySchema
+from fastapi_api.crud.base_crud import CRUDBase
 from sqlalchemy.orm import Session
 from typing import Optional
 
-class CategoryCRUD(CRUDBase[Category, CategoryCreate, Category]):
-    def get_by_name(self, db: Session, name: str) -> Optional[Category]:
+class CategoryCRUD(CRUDBase[CategoryModel, CategoryCreate, CategorySchema]):
+    def get_by_name(self, db: Session, name: str) -> Optional[CategoryModel]:
         return db.query(self.model).filter(self.model.name == name).first()
 
-category_crud = CategoryCRUD(Category)
+category_crud = CategoryCRUD(CategoryModel)

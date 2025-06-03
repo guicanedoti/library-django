@@ -1,11 +1,22 @@
-from rest_framework import serializers, viewsets
+from rest_framework import serializers
 from core.models import Book
 
-class BookSerializer(serializers.ModelSerializer):
+class BookListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = '__all__'
+        fields = ['id', 'title', 'author']  # Campos resumidos para GET ALL
 
-class BookViewSet(viewsets.ModelViewSet):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
+class BookDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = '__all__'  # Todos os campos para GET by ID
+
+class BookCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        exclude = ['id']  # Supondo que o ID é gerado automaticamente
+
+class BookUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'published_year']  # Campos editáveis

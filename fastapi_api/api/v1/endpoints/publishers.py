@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
-from core.dependencies import get_db
-from schemas.publisher_schema import Publisher, PublisherCreate
-from crud.publisher_crud import publisher_crud
+from fastapi_api.core.dependencies import get_db
+from fastapi_api.schemas.publisher_schema import Publisher, PublisherCreate
+from fastapi_api.crud.publisher_crud import publisher_crud
 
 router = APIRouter()
 

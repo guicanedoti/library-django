@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from core.serializers.book_serializer import BookViewSet
+from core.views import BookViewSet
 
 router = DefaultRouter()
 router.register(r'books', BookViewSet)
